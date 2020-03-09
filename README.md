@@ -1,6 +1,11 @@
-# chatroom-spike
+# chat-social-media
 
-A simple Socket.io chat module with PostgreSQL database user authentication for use in larger social media website project
+A social media website project based in forced chat-interactions between users required to access content
+
+## TODO
+- Enable MongoDB support for content, users, and groups rather than PostgreSQL
+- Incorporate post work from [this spike](https://github.com/seikamoomoo/post-content-cs361)
+- Incorporate search work from [this spike](https://github.com/kanwisck/CS361-Search)
 
 ## Dependencies
 - node.js >= v13.9.0
@@ -36,6 +41,7 @@ $ npm start
 - https://hackernoon.com/enforcing-a-single-web-socket-connection-per-user-with-node-js-socket-io-and-redis-65f9eb57f66a
 - https://itnext.io/build-a-group-chat-app-in-30-lines-using-node-js-15bfe7a2417b
 - https://www.tutorialspoint.com/postgresql/index.htm
+- https://thoughtbot.com/blog/html5-canvas-snake-game
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
