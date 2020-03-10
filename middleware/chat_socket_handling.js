@@ -28,7 +28,6 @@ module.exports = function(io, acceptChatConnection, chatRooms, maxCons) {
         }
 
         var username = socket.request.session.user.username;
-        // console.log(socket.request.session.user.username)
 
         socket.on('chat_join', function() {
             io.of('/chat').to('chat'+socket.handshake.query['id']).emit('is_online', '🔵 <i>' + username + ' joined the chat.</i>');

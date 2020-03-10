@@ -1,21 +1,22 @@
-<h1>Sign Up Form</h1>
-
-  <p>
-    <label for="username">Username: </label>
-    <input type="text" id="username" name="username" autofocus="true" placeholder="username" />
-  </p>
-  <p>
-    <label for="token">Password: </label>
-    <input type="text" id="token" name="password" placeholder="password" />
-  </p>
-  <p>
-    <button id="connect" onclick="submitSignupForm()">
-      Submit
-    </button>
-    <button id="cancel" onclick="redirectToLogin()">
-      Cancel
-    </button>
-  </p>
+<div class="main-form-container" id="login-form-container">
+  <h1>Sign Up Form</h1>
+    <p>
+      <label for="username">Username: </label>
+      <input type="text" id="username" name="username" autofocus="true" placeholder="username" />
+    </p>
+    <p>
+      <label for="token">Password: </label>
+      <input type="text" id="token" name="password" placeholder="password" />
+    </p>
+    <p class="button-p">
+      <button id="connect" onclick="submitSignupForm()">
+        Submit
+      </button>
+      <button id="cancel" onclick="redirectToLogin()">
+        Cancel
+      </button>
+    </p>
+</div>
 
 
   <script>

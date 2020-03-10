@@ -1,0 +1,41 @@
+<div class="collapsible-container up-down" id="game-container">
+
+    <div class="collapse-button-background" id="game-collapse-button-background">
+        <span class="collapse-button chevron chevron-top" id="game-collapse-button"></span>
+    </div>
+
+    <div class="collapse-content-background hidden" id="game-background">
+        <canvas id="game-canvas"></canvas>
+    </div>
+
+    <script>
+
+        $(document).ready(function() {
+
+            $('.collapse-button-background').each(function() {
+
+                $(this).on("click", function() {
+
+                    // find collapsible container parent
+                    var cont = $(this).parents(".collapsible-container");
+
+                    // toggle hiding of collapsing content
+                    cont.find('.collapse-content-background').toggleClass('hidden');
+
+                    // toggle chevron on button if present
+                    if (cont.hasClass('up-down')) {
+                        $(this).find('.chevron').toggleClass('chevron-top')
+                                                .toggleClass('chevron-bottom');
+                    }
+                    else if (cont.hasClass('left-right')) {
+                        $(this).find('.chevron').toggleClass('chevron-left')
+                                                .toggleClass('chevron-right');
+                    }
+
+                });
+            });
+
+        });
+
+    </script>
+</div>
