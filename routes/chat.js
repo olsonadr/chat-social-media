@@ -13,6 +13,15 @@ module.exports = function(app, context, chatRooms, maxCons) {
         return result;
     }
 
+    // check for id already in list of rooms
+    function idAlreadyUsed(chatRooms, id) {
+        for(const room in chatRooms) {
+            if (room == id) { return true; }
+        }
+
+        return false;
+    }
+
     // Chat Route Middleware
     app.get('/chat', function(req, res) {
         if (req.session.user && req.cookies.user_sid) {
@@ -28,7 +37,8 @@ module.exports = function(app, context, chatRooms, maxCons) {
 
             // generate new chat id if needed
             if (typeof(roomID) == 'undefined') {
-                roomID = makeid(10);
+                do { roomID = makeid(10); }
+                while (idAlreadyUsed(chatRooms, roomID));
             }
 
             // send to generated or found chat room

@@ -20,16 +20,21 @@ $ npm install
 ```
 - Install PostgreSQL, specifying data directory and setting up database configuration. The module uses the login "postgres:password" and database name "chatspike" on "localhost:5432"
 
-- Start PosgreSQL server and create database:
+- Start PosgreSQL server, create database, and install citext extension:
 
-```bash
+```
 $ pg_ctl start -D '<PATH_TO_DATA_DIR>'
-$ psql -U '<POSTGRES_USERNAME> -c 'CREATE DATABASE "<DATABASE_NAME>"
+$ psql -U "<POSTGRES_USERNAME>"
+Password for <POSGRES_USERNAME>:
+posgres=# CREATE DATABASE "<DATABASE_NAME>"
+posgres=# \c <DATABASE_NAME>
+<DATABASE_NAME>=# CREATE EXTENSION citext
+<DATABASE_NAME>=# \q
 ```
 
 ## Usage
 
-```bash
+```
 # Ensure DB Server is Started
 $ pg_ctl start -D '<PATH_TO_DATA_DIR>'
 

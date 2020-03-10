@@ -3,12 +3,12 @@ var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt');
 
 // Create sequelize instance with local database
-var sequelize = new Sequelize('postgres://postgres:password@localhost:5432/chatspike');
+var sequelize = new Sequelize('postgres://postgres:password@localhost:5432/chatsocialmedia');
 
 // setup User model and its fields.
 var User = sequelize.define('users', {
     username: {
-        type: Sequelize.STRING,
+        type: 'citext',
         unique: true,
         allowNull: false
     },
