@@ -5,7 +5,8 @@
 </form>
 
 <script>
-    var socket = io.connect('/chat');//'/chat');//'{{socketURL}}');
+    var socket = io.connect('/chat?id=' + '{{socketURL}}');//'/chat');//'/chat');//'{{socketURL}}');
+    console.log('{{socketURL}}');
 
     // submit text message without reload/refresh the page
     $('form').submit(function(e){
