@@ -26,8 +26,6 @@
         $('#messages').append($('<li>').html(username));
     });
 
-    // get username
-    // var username = socket.session.username;
-    // var username = prompt('Please tell me your name');
+    // emit that connection has been made
     socket.emit('chat_join');
 </script>
