@@ -84,8 +84,6 @@ html {
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     background-color: #3e3e3e;
-    height: 300px;
-    width:  300px;
     margin: 0;
     padding: 0;
 }
