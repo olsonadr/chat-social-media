@@ -1,11 +1,25 @@
-:root{
-    --primarycolor: white;
+:root {
+    --primarycolor: #fefffe;
+    --secondarycolor: #b4b8c5;
+    --accentcolor: #e9ebf8;
+    --headercolor: #e9ebf8;
+    --transparent: rgba(0, 0, 0, .75);
+    --textcolor: #111;
+    --backgroundcolor: #fefffe;
+    --bigtextcolor: #333;
+
+    /* --primarycolor: white;
     --secondarycolor: grey;
     --accentcolor: orange;
     --headercolor: white;
     --transparent: rgba(0, 0, 0, .75);
     --textcolor: black;
-    --bigtextcolor: #333;
+    --backgroundcolor: darkgrey;
+    --bigtextcolor: #333; */
+}
+
+html {
+    background-color: var(--backgroundcolor);
 }
 
 body {
@@ -23,7 +37,7 @@ a:hover {
 }
 
 header {
-    background-color: var(--primarycolor);
+    background-color: var(--headercolor);
     display: flex;
     align-items: center;
     position: relative;
@@ -92,14 +106,16 @@ html {
     position: fixed;
     bottom: 0;
     right: 0;
+    width: auto;
 }
 
-#game-pause-label {
+#game-info-label {
     position: absolute;
     background-color: var(--primarycolor);
     text-align: center;
     padding: 10px;
-    top: 50%;
+    top: 0%;
+    margin-top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -118,7 +134,7 @@ html {
     padding-top: 7px;
 }
 
-#game-pause-button {
+.game-banner-button {
     width: 50px;
     height: 24pt;
     flex-grow: 1;
@@ -127,6 +143,10 @@ html {
     border-radius: 5px;
     text-align: center;
     font-size: 14pt;
+}
+
+.game-banner-button:last-child {
+    margin-left: 10px;
 }
 
 #game-score {
@@ -307,7 +327,9 @@ html {
     background-color: var(--secondarycolor);
     padding: 20px 50px 20px 50px;
     border-radius: 10px;
-
+    margin-top: 40px;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
 }
 
 .main-form-container p {
@@ -450,7 +472,22 @@ html {
   top:68px;
 }
 
+.navbar-nav {
+    /* border: 10px black; */
+}
 
+.navbar-left {
+  float: left;
+  clear: none;
+  margin-left: 0px;
+  list-style: none;
+}
+.navbar-right {
+  float: right;
+  clear: none;
+  margin-right: 40px;
+  list-style: none;
+}
 
 
 /* OLD */

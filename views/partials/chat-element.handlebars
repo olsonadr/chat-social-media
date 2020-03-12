@@ -1,12 +1,12 @@
-<ul id="messages"></ul>
-
-<form action="/chat" method="POST" id="chatForm">
-  <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
-</form>
+<div id="chat-container">
+  <ul id="messages"></ul>
+  <form action="/chat" method="POST" id="chat-form">
+    <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
+  </form>
+</div>
 
 <script>
     var socket = io.connect('/chat?id=' + '{{socketURL}}');//'/chat');//'/chat');//'{{socketURL}}');
-    console.log('{{socketURL}}');
 
     // submit text message without reload/refresh the page
     $('form').submit(function(e){

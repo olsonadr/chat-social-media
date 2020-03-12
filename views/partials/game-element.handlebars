@@ -8,11 +8,13 @@
         <canvas id="game-canvas" width="300" height="300"></canvas>
         <div id="game-banner">
             <p id="game-score"></p>
-            <button id="game-pause-button">Play</button>
+            <button id="game-pause-button" class="game-banner-button">Play</button>
+            <button id="give-up-button" class="game-banner-button">Die</button>
         </div>
-        <h1 id="game-pause-label">PAUSED</h1>
+        <h1 id="game-info-label">PAUSED</h1>
     </div>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/scripts/snake/fruit.js"></script>
     <script type="text/javascript" src="/scripts/snake/snake.js"></script>
     <script type="text/javascript" src="/scripts/snake/draw.js"></script>
@@ -29,7 +31,17 @@
                     var cont = $(this).parents(".collapsible-container");
 
                     // toggle hiding of collapsing content
-                    cont.find('.collapse-content-background').toggleClass('hidden');
+                    // if (cont.find('.collapse-content-background').hasClass('hidden')) {
+                    //     cont.find('.collapse-content-background').slideUp(400, function() {
+                    //         cont.find('.collapse-content-background').add
+                    //     });
+                    //
+                    // }
+                    // else {
+                    //
+                    // }
+                    cont.find('.collapse-content-background').slideToggle();
+                    // cont.find('.collapse-content-background').toggleClass('hidden');
 
                     // toggle chevron on button if present
                     if (cont.hasClass('up-down')) {

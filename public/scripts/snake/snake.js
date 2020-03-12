@@ -5,6 +5,7 @@ function Snake() {
   this.ySpeed = 0;
   this.total = 0;
   this.tail = [];
+  let socket;
 
   this.draw = function() {
     ctx.fillStyle = "#FFFFFF";
@@ -78,10 +79,33 @@ function Snake() {
   this.checkCollision = function() {
     for (var i=0; i<this.tail.length; i++) {
       if (this.x === this.tail[i].x &&
-        this.y === this.tail[i].y) {
-        this.total = 0;
-        this.tail = [];
+          this.y === this.tail[i].y) {
+        this.die();
       }
     }
   }
+
+  this.die = function() {
+    this.saveScore();
+    this.total = 0;
+    this.tail = [];
+  }
+
+  this.saveScore = function() {
+    // if not connected
+    if (typeof(socket) == 'undefined') {
+      // connect to snake socket
+      socket = io.connect('/snake');
+
+      // setup new high score communication
+      socket.on('new_high_score', function() {
+          console.log('new snake high score!');
+          $('#game-info-label').trigger('new_high_score');
+      });
+    }
+
+    // send score save
+    socket.emit('score_save', this.total);
+  }
+
 }

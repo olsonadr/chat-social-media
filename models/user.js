@@ -15,6 +15,9 @@ var User = sequelize.define('users', {
     password: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    highscore: {
+        type: Sequelize.INTEGER
     }
 }, {
     hooks: {
@@ -38,6 +41,17 @@ sequelize.sync()
 // Add password method
 User.prototype.vPass = function(password) {
   return bcrypt.compareSync(password, this.password);
+}
+
+// Add check highscore method
+User.prototype.newScore = function(score) {
+  if (score > this.highscore) {
+    this.update({ highscore: score });
+    return 1;
+  }
+  else {
+    return 0;
+  }
 }
 
 // export User model for use in other files.

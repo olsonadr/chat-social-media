@@ -69,6 +69,8 @@ var User = require('../models/user.js');
 // Whether a connection should be accepted to a chat room
 const acceptChatConnection = require('../utils/accept_chat_connection');
 
+// Whether a connection should be accepted to a snake session
+const acceptSnakeConnection = require('../utils/accept_snake_connection');
 
 
 // // // // // // // // // // // // // // //
@@ -132,6 +134,9 @@ require('../routes/404.js')(app, indexContext);
 
 // Socket.io Middleware for '/chat' Socket
 require('../middleware/chat_socket_handling.js')(io, acceptChatConnection, chatRooms, maxCons);
+
+// Socket.io Middleware for '/chat' Socket
+require('../middleware/snake_socket_handling.js')(io, acceptSnakeConnection, User);
 
 
 

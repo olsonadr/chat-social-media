@@ -8,7 +8,7 @@ module.exports = function(io, acceptChatConnection, chatRooms, maxCons) {
 
         // Check if connection is unwanted (including username is set)
         if (!acceptChatConnection(socket)) {
-            console.log(`Closing connection to socket ${socket.id}`);
+            console.log(`Closing chat connection to socket ${socket.id}`);
             socket.disconnect(true);
             return;
         }
@@ -51,10 +51,10 @@ module.exports = function(io, acceptChatConnection, chatRooms, maxCons) {
 
         socket.on('chat_message', function(message) {
             io.of('/chat').to('chat'+socket.handshake.query['id']).emit('chat_message', '<strong>' + username + '</strong>: ' + message);
-            if (typeof(chatRooms) !== 'undefined') {
-                // status: 0 => empty, 1 => partially full, 2 => full
-                console.log(chatRooms);
-            }
+            // if (typeof(chatRooms) !== 'undefined') {
+            //     // status: 0 => empty, 1 => partially full, 2 => full
+            //     // console.log(chatRooms);
+            // }
         });
 
     });

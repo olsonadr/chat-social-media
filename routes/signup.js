@@ -11,7 +11,8 @@ module.exports = function(app, sessionChecker, context, User) {
         .post((req, res) => {
             User.create({
                 username: req.body.username,
-                password: req.body.password
+                password: req.body.password,
+                highscore: 0,
             })
             .then(user => {
                 req.session.user = user.dataValues;
