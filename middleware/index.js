@@ -1,5 +1,5 @@
-module.exports = function(app, io, session, indexContext, chatRooms, maxCons, User) {
-
+module.exports = function(app, io, session, indexContext, User, chatRooms, maxCons) {
+  
     // Returned object
     var result = {};
 

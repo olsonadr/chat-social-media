@@ -91,8 +91,7 @@ var User = db.User;
 // // // // // // // // // // // // // // //
 
 // Setup misc and Socket.io middleware
-var middleware = require('../middleware/')(app, io, session, indexContext,
-                                           User, chatRooms, maxCons);
+var middleware = require('../middleware/')(app, io, session, indexContext, db.User, chatRooms, maxCons);
 
 // User-session checker middleware
 var sessionChecker = middleware.sessionChecker;
@@ -120,8 +119,7 @@ app.use(cookieParser());
 app.use(express.static(publicDir));
 
 // All express route middleware
-require('../routes/')(app, sessionChecker, indexContext,
-                      User, chatRooms, maxCons);
+require('../routes/')(app, sessionChecker, indexContext, db.User, chatRooms, maxCons);
 
 
 

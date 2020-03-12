@@ -1,3 +1,5 @@
+
+
 function Snake() {
   this.x = 0;
   this.y = 0;
@@ -6,6 +8,17 @@ function Snake() {
   this.total = 0;
   this.tail = [];
   let socket;
+
+  $(document).ready(function() {
+    // connect to snake socket
+    socket = io.connect('/snake');
+
+    // setup new high score communication
+    socket.on('new_high_score', function() {
+        console.log('new snake high score!');
+        $('#game-info-label').trigger('new_high_score');
+    });
+  });
 
   this.draw = function() {
     ctx.fillStyle = "#FFFFFF";
@@ -93,19 +106,10 @@ function Snake() {
 
   this.saveScore = function() {
     // if not connected
-    if (typeof(socket) == 'undefined') {
-      // connect to snake socket
-      socket = io.connect('/snake');
-
-      // setup new high score communication
-      socket.on('new_high_score', function() {
-          console.log('new snake high score!');
-          $('#game-info-label').trigger('new_high_score');
-      });
+    if (typeof(socket) !== 'undefined') {
+      // send score save
+      socket.emit('score_save', this.total);
     }
-
-    // send score save
-    socket.emit('score_save', this.total);
   }
 
 }
