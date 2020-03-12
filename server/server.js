@@ -30,11 +30,11 @@ var regeneratorRuntime = require('regenerator-runtime');
 // // //     PROGRAM PARAMETERS     // // //
 // // // // // // // // // // // // // // //
 
-// Set constants
+// Set misc params
 const publicDir = path.join(__dirname, '../public');
 const port	    = process.env.PORT || 3000;
-let chatRooms = {};
-var maxCons = 5;
+let chatRooms   = {};
+const maxCons   = 5;
 
 // Handlebars context for html rendering
 var indexContext = {
@@ -43,6 +43,9 @@ var indexContext = {
             if(!this._sections) this._sections = {};
             this._sections[name] = options.fn(this);
             return null;
+        },
+        headerDropdownModeCheck: function(mode, required) {
+            return (required == 'any') || (mode == required);
         }
     },
     headerDropdownMenus: [
@@ -63,8 +66,8 @@ var indexContext = {
         }
     ],
     headerDropdownMode: "logged-out",
-    siteTitle:        "Unset",
     siteLogoSource:   "/BLK_BOARD_logo.jpg",
+    siteTitle:        "",
     initData:         "",
     initMessage:      ""
 };
@@ -75,20 +78,25 @@ var indexContext = {
 // // //          DB MODELS         // // //
 // // // // // // // // // // // // // // //
 
+// Setup database usage
+var db = require('../models/');
+
 // User model for authentication
-var User = require('../models/user.js');
+var User = db.User;
 
 
 
 // // // // // // // // // // // // // // //
-// // //     UTILITY FUNCTIONS      // // //
+// // //    MIDDLEWARE AND UTILS    // // //
 // // // // // // // // // // // // // // //
 
-// Whether a connection should be accepted to a chat room
-const acceptChatConnection = require('../utils/accept_chat_connection');
+// Setup misc and Socket.io middleware
+var middleware = require('../middleware/')(app, io, session, indexContext,
+                                           User, chatRooms, maxCons);
 
-// Whether a connection should be accepted to a snake session
-const acceptSnakeConnection = require('../utils/accept_snake_connection');
+// User-session checker middleware
+var sessionChecker = middleware.sessionChecker;
+
 
 
 // // // // // // // // // // // // // // //
@@ -96,32 +104,11 @@ const acceptSnakeConnection = require('../utils/accept_snake_connection');
 // // // // // // // // // // // // // // //
 
 // Setup Express + Handlebars app engine
-app.engine('handlebars', hb({
-        extname: 'handlebars',
-        helpers: require('../utils/handlebars-helpers.js')
-    }));
-app.set('view engine', 'handlebars');
-app.enable('trust proxy');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'handlebars');
+app.engine('handlebars', hb());
+app.enable('trust proxy');
 app.use(cookieParser());
-
-
-
-// // // // // // // // // // // // // // //
-// // //      MISC MIDDLEWARE       // // //
-// // // // // // // // // // // // // // //
-
-// Middleware to Check for User Session Cookie
-const sessionChecker = require('../middleware/check_user_session.js')(indexContext);
-
-// Static Public Directory Middleware
-app.use(express.static(publicDir));
-
-// Session + Socket.io Integration Middleware
-require('../middleware/session_socket_integration.js')(app, io, session);
-
-// Clear Previously Saved Cookies Middleware
-require('../middleware/clear_cookies.js')(app);
 
 
 
@@ -129,35 +116,12 @@ require('../middleware/clear_cookies.js')(app);
 // // //       EXPRESS ROUTES       // // //
 // // // // // // // // // // // // // // //
 
-// Index Route Middleware
-require('../routes/index.js')(app, sessionChecker);
+// Static Public Directory Middleware
+app.use(express.static(publicDir));
 
-// Signup Route Middleware
-require('../routes/signup.js')(app, sessionChecker, indexContext, User);
-
-// Login Route Middleware
-require('../routes/login.js')(app, sessionChecker, indexContext, User);
-
-// Chat Route Middleware
-require('../routes/chat.js')(app, sessionChecker, indexContext, chatRooms, maxCons);
-
-// Logout Route Middleware
-require('../routes/logout.js')(app);
-
-// 404 Route Middleware (MUST COME LAST)
-require('../routes/404.js')(app, sessionChecker, indexContext);
-
-
-
-// // // // // // // // // // // // // // //
-// // //    SOCKET.IO MIDDLEWARE    // // //
-// // // // // // // // // // // // // // //
-
-// Socket.io Middleware for '/chat' Socket
-require('../middleware/chat_socket_handling.js')(io, acceptChatConnection, chatRooms, maxCons);
-
-// Socket.io Middleware for '/chat' Socket
-require('../middleware/snake_socket_handling.js')(io, acceptSnakeConnection, User);
+// All express route middleware
+require('../routes/')(app, sessionChecker, indexContext,
+                      User, chatRooms, maxCons);
 
 
 
@@ -165,11 +129,7 @@ require('../middleware/snake_socket_handling.js')(io, acceptSnakeConnection, Use
 // // //       START LISTENING      // // //
 // // // // // // // // // // // // // // //
 
-// Get public IP address
-(async () => { return await pIP.v4() + ":" + port; })()
-    .then((hostIP) => {
-        // Then listen on port
-        http.listen(port, '0.0.0.0', function() {
-            console.log(` ~=> Server is a go at ${hostIP}`);
-        });
-    });
+// Then listen on port
+http.listen(port, '0.0.0.0', function() {
+    console.log(` ~=> Server is a go!`);
+});
