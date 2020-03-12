@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <nav>
+      <ul>
+          <li class="nav">
+              <a href="/search">Home</a>
+    </li>
+    <li class="nav">
+      <a href="/results?text=">Results</a>
+          </li>
+      </ul>
+  </nav>
+	<title>CS361</title>
+	<link href="search_style.css" rel="stylesheet">
+
+  <h1>Search</h1>
+  <form method="GET" action="/results">
+    <label>Text:</label>
+    <br>
+    <textarea name="text" placeholder="Enter keywords separated by commas" cols="50" rows="5"></textarea>
+    <br>
+    <input type="submit" value="Search">
+  </form>
+</body>
+</html>

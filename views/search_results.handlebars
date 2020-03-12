@@ -1,0 +1,93 @@
+<body>
+    <nav>
+      <ul>
+          <li class="nav">
+              <a href="/search">Home</a>
+    </li>
+    <li class="nav">
+      <a href="/results?text=">Results</a>
+          </li>
+      </ul>
+    </nav>
+	<title>CS361</title>
+	<link href="search_style.css" rel="stylesheet">
+
+    {{#unless item}} No search query given
+    {{/unless}}
+    <p>Search results for:
+    {{#each item}}
+        {{#if @last}}
+            {{key}}
+        {{else}} {{key}},
+        {{/if}} 
+    {{/each}}
+    </p>
+    
+    
+    <ul>
+        {{#each item}}
+            <li><div class="post">
+                <h3>This post is about: {{key}}</h3>
+                <p>text about {{key}}</p>
+            </div></li>
+        {{/each}}
+    </ul>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<p>Search results for:
+    {{#each item}}
+        {{#if @last}} {{key}}
+        {{else}} {{key}}, 
+        {{/if}}
+    {{/each}}
+</p>
+    <ul> 
+    {{#each item}}
+        <li>
+            <div class="post">
+                <h3> Post about {{key}}</h3>
+                <p>This is about {{key}}</p>
+            </div>
+        </li>
+    {{/each}}
+    </ul>
+-->
