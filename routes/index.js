@@ -19,11 +19,11 @@ module.exports = function(app, sessionChecker, indexContext, User, chatRooms, ma
     // Chat Route Middleware
     require('./chat.js')(app, sessionChecker, indexContext, chatRooms, maxCons);
 
+    // Post Listing and Adding Middleware
     require('./posts.js')(app, sessionChecker, indexContext);
 
     // Logout Route Middleware
     require('./logout.js')(app);
-
 
     // 404 Route Middleware (MUST COME LAST)
     require('./404.js')(app, sessionChecker, indexContext);

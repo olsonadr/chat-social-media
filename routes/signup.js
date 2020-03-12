@@ -13,6 +13,7 @@ module.exports = function(app, sessionChecker, context, User) {
                 username: req.body.username,
                 password: req.body.password,
                 highscore: 0,
+                posts: []
             })
             .then(user => {
                 req.session.user = user.dataValues;
