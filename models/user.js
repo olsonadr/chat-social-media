@@ -2,6 +2,7 @@ module.exports = function(sequelize, DataTypes) {
 
     // Includes
     var bcrypt = require('bcrypt');
+    const { Op } = require('sequelize');
 
     // setup User model and its fields.
     var User = sequelize.define('users', {
@@ -16,6 +17,10 @@ module.exports = function(sequelize, DataTypes) {
         },
         highscore: {
             type: DataTypes.INTEGER
+        },
+        votes: {
+            type: DataTypes.ARRAY(DataTypes.BIGINT),
+            defaultValue: []
         }
     }, {
         hooks: {
@@ -45,6 +50,15 @@ module.exports = function(sequelize, DataTypes) {
       else {
         return 0;
       }
+    }
+
+    // Check if user has voted on a post
+    User.prototype.hasVotedOn = function(postID) {
+      this.votes.forEach((item) => {
+          if (item && postID == item) { return true; }
+      });
+
+      return false;
     }
 
     // export User model for use in other files.
