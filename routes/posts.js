@@ -8,8 +8,8 @@ module.exports = function(app, sessionChecker, context, User, post){
     console.log(postData);
     res.status(200).render('postspage', context);
     });
-
-    app.post('/add', function (req, res, next) {
+app.route('/add-post')
+    .post(sessionChecker function (req, res, next) {
     console.log(req.body);
     console.log(postData);
     postData.push({
@@ -19,7 +19,7 @@ module.exports = function(app, sessionChecker, context, User, post){
       });
     console.log(postData);
     fs.writeFile(
-    	__dirname + '/posts.json',
+    	'../posts.json',
     	JSON.stringify(postData, 2, 2),
     	function (err) {
     		if (!err) {
