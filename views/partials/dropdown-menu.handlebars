@@ -1,0 +1,13 @@
+
+<div id="{{this.id}}-container" class="dropdown-container">
+  <div id="{{this.id}}-icon-container" class="dropdown-icon-container">
+    <img src="{{this.iconSource}}" alt="Profile" id="{{this.id}}-icon-image" class="dropdown-icon">
+  </div>
+  <ul id="{{this.id}}-list" class="dropdown-list">
+    {{#each this.items}}
+      {{#if (headerDropdownModeCheck @root/headerDropdownMode this.mode)}}
+        <a class="dropdown-list-item" href="{{this.href}}">{{this.label}}</a>
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>

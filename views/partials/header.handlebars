@@ -1,9 +1,39 @@
 <header>
 
   <div class="header-image-container">
-    <a href="./"><img src="{{logoSource}}" alt="Logo"></a>
+    <a href="./"><img src="{{siteLogoSource}}" alt="Site Logo"></a>
   </div>
 
   <h1 class="site-title"><a href="./">{{siteTitle}}</a></h1>
+
+  <div id="click-stopper"></div>
+  <div id="header-dropdown-menus">
+    {{#each headerDropdownMenus}}
+      {{> dropdown-menu}}
+    {{/each}}
+  </div>
+
+  <script>
+
+    $('document').ready(function() {
+
+      $('.dropdown-icon-container').on('click', function() {
+        var list = $(this).siblings('.dropdown-list');
+        if (list.css('display') == 'none') {
+          $('#click-stopper').show();
+        }
+        else {
+          $('#click-stopper').hide();
+        }
+        list.toggle();
+      });
+
+      $('#click-stopper').on('click', function() {
+        $('.dropdown-list').hide();
+        $(this).hide();
+      });
+    });
+
+  </script>
 
 </header>
