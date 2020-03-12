@@ -1,58 +1,53 @@
-// Includes
-var Sequelize = require('sequelize');
-var bcrypt = require('bcrypt');
+module.exports = function(sequelize, DataTypes) {
 
-// Create sequelize instance with local database
-var sequelize = new Sequelize('postgres://postgres:password@localhost:5432/chatsocialmedia');
+    // Includes
+    var bcrypt = require('bcrypt');
 
-// setup User model and its fields.
-var User = sequelize.define('users', {
-    username: {
-        type: 'citext',
-        unique: true,
-        allowNull: false
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    highscore: {
-        type: Sequelize.INTEGER
+    // setup User model and its fields.
+    var User = sequelize.define('users', {
+        username: {
+            type: 'citext',
+            unique: true,
+            allowNull: false
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        highscore: {
+            type: DataTypes.INTEGER
+        }
+    }, {
+        hooks: {
+          beforeCreate: (user) => {
+            const salt = bcrypt.genSaltSync();
+            user.password = bcrypt.hashSync(user.password, salt);
+          }
+        },
+        instanceMethods: {
+          validPassword: function(password) {
+            return bcrypt.compareSync(password, this.password);
+          }
+        }
+    });
+
+    // Add password method
+    User.prototype.vPass = function(password) {
+      return bcrypt.compareSync(password, this.password);
     }
-}, {
-    hooks: {
-      beforeCreate: (user) => {
-        const salt = bcrypt.genSaltSync();
-        user.password = bcrypt.hashSync(user.password, salt);
+
+    // Add check highscore method
+    User.prototype.newScore = function(score) {
+      if (score > this.highscore) {
+        this.update({ highscore: score });
+        return 1;
       }
-    },
-    instanceMethods: {
-      validPassword: function(password) {
-        return bcrypt.compareSync(password, this.password);
+      else {
+        return 0;
       }
     }
-});
 
-// create all the defined tables in the specified database.
-sequelize.sync()
-    .then(() => console.log('users table has been successfully created, if one doesn\'t exist'))
-    .catch(error => console.log('This error occured', error));
+    // export User model for use in other files.
+    return User;
 
-// Add password method
-User.prototype.vPass = function(password) {
-  return bcrypt.compareSync(password, this.password);
 }
-
-// Add check highscore method
-User.prototype.newScore = function(score) {
-  if (score > this.highscore) {
-    this.update({ highscore: score });
-    return 1;
-  }
-  else {
-    return 0;
-  }
-}
-
-// export User model for use in other files.
-module.exports = User;

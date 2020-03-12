@@ -2,8 +2,11 @@
 
 A social media website project based in forced chat-interactions between users required to access content
 
+## Deployed
+
+This project is currently being deployed [on heroku](https://chat-social-media.herokuapp.com). It can also be cloned and run with a local PostgreSQL database as described in the following instructions.
+
 ## TODO
-- Enable MongoDB support for content, users, and groups rather than PostgreSQL
 - Incorporate post work from [this spike](https://github.com/seikamoomoo/post-content-cs361)
 - Incorporate search work from [this spike](https://github.com/kanwisck/CS361-Search)
 
@@ -18,7 +21,7 @@ A social media website project based in forced chat-interactions between users r
 ```bash
 $ npm install
 ```
-- Install PostgreSQL, specifying data directory and setting up database configuration. The module uses the login "postgres:password" and database name "chatspike" on "localhost:5432"
+- Install PostgreSQL, specifying data directory and setting up database configuration. This project, as an example, uses database name "chat-social-media" on "localhost:5432"
 
 - Start PosgreSQL server and connect to it:
 
@@ -28,13 +31,13 @@ $ psql -U "<POSTGRES_USERNAME>"
 ```
 - Create database for app and connect to it:
 ```
-posgres=# CREATE DATABASE "<DATABASE_NAME>"
+posgres=# CREATE DATABASE "<DATABASE_NAME>";
 posgres=# \c <DATABASE_NAME>
 ```
 
 - Add citext extension for case-insensitive usernames:
 ```
-<DATABASE_NAME>=# CREATE EXTENSION citext
+<DATABASE_NAME>=# CREATE EXTENSION citext;
 <DATABASE_NAME>=# \q
 ```
 
