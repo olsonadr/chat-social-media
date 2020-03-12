@@ -75,8 +75,11 @@ var indexContext = {
 // // //          DB MODELS         // // //
 // // // // // // // // // // // // // // //
 
+// Setup database usage
+var db = require('../models/');
+
 // User model for authentication
-var User = require('../models/user.js');
+var User = db.User;
 
 
 
