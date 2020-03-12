@@ -33,6 +33,8 @@ var regeneratorRuntime = require('regenerator-runtime');
 // Set constants
 const publicDir = path.join(__dirname, '../public');
 const port	    = process.env.PORT || 3000;
+let chatRooms = {};
+var maxCons = 5;
 
 // Handlebars context for html rendering
 var indexContext = {
@@ -67,6 +69,8 @@ var User = require('../models/user.js');
 // Whether a connection should be accepted to a chat room
 const acceptChatConnection = require('../utils/accept_chat_connection');
 
+// Whether a connection should be accepted to a snake session
+const acceptSnakeConnection = require('../utils/accept_snake_connection');
 
 
 // // // // // // // // // // // // // // //
@@ -114,7 +118,7 @@ require('../routes/signup.js')(app, sessionChecker, indexContext, User);
 require('../routes/login.js')(app, sessionChecker, indexContext, User);
 
 // Chat Route Middleware
-require('../routes/chat.js')(app, indexContext);
+require('../routes/chat.js')(app, indexContext, chatRooms, maxCons);
 
 // Logout Route Middleware
 require('../routes/logout.js')(app);
@@ -129,7 +133,10 @@ require('../routes/404.js')(app, indexContext);
 // // // // // // // // // // // // // // //
 
 // Socket.io Middleware for '/chat' Socket
-require('../middleware/chat_socket_handling.js')(io, acceptChatConnection);
+require('../middleware/chat_socket_handling.js')(io, acceptChatConnection, chatRooms, maxCons);
+
+// Socket.io Middleware for '/chat' Socket
+require('../middleware/snake_socket_handling.js')(io, acceptSnakeConnection, User);
 
 
 
@@ -141,7 +148,7 @@ require('../middleware/chat_socket_handling.js')(io, acceptChatConnection);
 (async () => { return await pIP.v4() + ":" + port; })()
     .then((hostIP) => {
         // Then listen on port
-        http.listen(port, function() {
+        http.listen(port, '0.0.0.0', function() {
             console.log(` ~=> Server is a go at ${hostIP}`);
         });
     });

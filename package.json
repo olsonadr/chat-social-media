@@ -4,11 +4,11 @@
   "description": "forced-interaction social media website",
   "main": "./server/server.js",
   "scripts": {
-    "server": "node ./dist-server/server/server.js",
+    "server": "node ./dist-server/server.js",
     "help": "printf \"help\"",
     "start": "npm run prod",
     "build": "npm-run-all clean transpile",
-    "transpile": "babel . --out-dir dist-server",
+    "transpile": "babel ./server --out-dir dist-server",
     "dev": "cross-env NODE_ENV=\"development\"; npm-run-all build server",
     "prod": "cross-env NODE_ENV=\"production\"; npm-run-all build server",
     "clean": "rimraf dist-server",

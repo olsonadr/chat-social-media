@@ -1,11 +1,12 @@
-<ul id="messages"></ul>
-
-<form action="/chat" method="POST" id="chatForm">
-  <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
-</form>
+<div id="chat-container">
+  <ul id="messages"></ul>
+  <form action="/chat" method="POST" id="chat-form">
+    <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
+  </form>
+</div>
 
 <script>
-    var socket = io.connect('/chat');//'/chat');//'{{socketURL}}');
+    var socket = io.connect('/chat?id=' + '{{socketURL}}');//'/chat');//'/chat');//'{{socketURL}}');
 
     // submit text message without reload/refresh the page
     $('form').submit(function(e){
@@ -25,8 +26,6 @@
         $('#messages').append($('<li>').html(username));
     });
 
-    // get username
-    // var username = socket.session.username;
-    // var username = prompt('Please tell me your name');
+    // emit that connection has been made
     socket.emit('chat_join');
 </script>
