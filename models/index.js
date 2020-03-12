@@ -10,7 +10,8 @@ if (!global.hasOwnProperty('db')) {
         sequelize = new Sequelize(process.env.DATABASE_URL, {
           dialect:  'postgres',
           protocol: 'postgres',
-          port:     5432
+          port:     5432,
+          logging: true
           // host:     "ec2-34-200-116-132.compute-1.amazonaws.com"
         });
     }
