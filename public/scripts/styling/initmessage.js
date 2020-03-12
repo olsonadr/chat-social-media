@@ -1,17 +1,21 @@
-// Show initial message modal
-if ($('#init-message-modal-text').text() != '') {
-    $('#init-message-modal').css('display', 'block');
-}
+$(document).ready(function() {
 
-// Setup modal close cases
-$('#init-message-modal-close-button').on('click', closeInitMessageModal);
-$('#init-message-modal').on('click', closeInitMessageModal);
+    // Show initial message modal
+    if ($('#init-message-modal-text').text() != '') {
+        $('#init-message-modal').show();
+    }
 
-// Stop clicking on modal container from closing
-$('#init-message-modal .modal-container')
-        .on("click", function(ev) { ev.stopPropagation(); }, false);
+    // Setup modal close cases
+    $('#init-message-modal-close-button').on('click', closeInitMessageModal);
+    $('#init-message-modal').on('click', closeInitMessageModal);
 
-// Close modal function
-function closeInitMessageModal() {
-    $('#init-message-modal').css('display', '');
-}
+    // Stop clicking on modal container from closing
+    $('#init-message-modal .modal-container')
+            .on("click", function(ev) { ev.stopPropagation(); }, false);
+
+    // Close modal function
+    function closeInitMessageModal() {
+        $('#init-message-modal').hide();
+    }
+
+});
