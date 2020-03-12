@@ -45,16 +45,34 @@ var indexContext = {
             return null;
         }
     },
-    siteTitle:    "Unset",
-    logoSource:   "/BLK_BOARD_logo.jpg",
-    initData:     "",
-    initMessage:  ""
+    headerDropdownMenus: [
+        {
+            id: "links-menu",
+            iconSource: "/img/menu_icon.png",
+            items: [ {label: "Posts",   href: "/posts",   mode: "any"},
+                     {label: "Search",  href: "/search",  mode: "any"},
+                     {label: "Chat",    href: "/chat",    mode: "any"} ]
+        },
+        {
+            id: "profile-menu",
+            iconSource: "/img/user_icon_small.png",
+            items: [ {label: "Profile", href: "/profile", mode: "logged-in"},
+                     {label: "Logout",  href: "/logout",  mode: "logged-in"},
+                     {label: "Login",   href: "/login",   mode: "logged-out"},
+                     {label: "Signup",  href: "/signup",  mode: "logged-out"} ]
+        }
+    ],
+    headerDropdownMode: "logged-out",
+    siteTitle:        "Unset",
+    siteLogoSource:   "/BLK_BOARD_logo.jpg",
+    initData:         "",
+    initMessage:      ""
 };
 
 
 
 // // // // // // // // // // // // // // //
-// // //           MODELS           // // //
+// // //          DB MODELS         // // //
 // // // // // // // // // // // // // // //
 
 // User model for authentication
@@ -78,7 +96,10 @@ const acceptSnakeConnection = require('../utils/accept_snake_connection');
 // // // // // // // // // // // // // // //
 
 // Setup Express + Handlebars app engine
-app.engine('handlebars', hb());
+app.engine('handlebars', hb({
+        extname: 'handlebars',
+        helpers: require('../utils/handlebars-helpers.js')
+    }));
 app.set('view engine', 'handlebars');
 app.enable('trust proxy');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -91,7 +112,7 @@ app.use(cookieParser());
 // // // // // // // // // // // // // // //
 
 // Middleware to Check for User Session Cookie
-const sessionChecker = require('../middleware/check_user_session.js');
+const sessionChecker = require('../middleware/check_user_session.js')(indexContext);
 
 // Static Public Directory Middleware
 app.use(express.static(publicDir));
@@ -118,13 +139,13 @@ require('../routes/signup.js')(app, sessionChecker, indexContext, User);
 require('../routes/login.js')(app, sessionChecker, indexContext, User);
 
 // Chat Route Middleware
-require('../routes/chat.js')(app, indexContext, chatRooms, maxCons);
+require('../routes/chat.js')(app, sessionChecker, indexContext, chatRooms, maxCons);
 
 // Logout Route Middleware
 require('../routes/logout.js')(app);
 
-// 404 Route Middleware
-require('../routes/404.js')(app, indexContext);
+// 404 Route Middleware (MUST COME LAST)
+require('../routes/404.js')(app, sessionChecker, indexContext);
 
 
 

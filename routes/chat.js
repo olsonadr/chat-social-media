@@ -1,4 +1,4 @@
-module.exports = function(app, context, chatRooms, maxCons) {
+module.exports = function(app, sessionChecker, context, chatRooms, maxCons) {
 
     // random id generator
     function makeid(length) {
@@ -23,35 +23,30 @@ module.exports = function(app, context, chatRooms, maxCons) {
     }
 
     // Chat Route Middleware
-    app.get('/chat', function(req, res) {
-        if (req.session.user && req.cookies.user_sid) {
+    app.get('/chat', sessionChecker, function(req, res) {
 
-            // find available chat
-            let mehChoice, goodChoice, roomID;
-            for (const room in chatRooms) {
-                if      (chatRooms[room]['status'] == 0) { mehChoice = room; }
-                else if (chatRooms[room]['status'] == 1) { goodChoice = room; break; }
-            }
-            if (typeof(goodChoice) !== 'undefined')     { roomID = goodChoice; }
-            else if (typeof(mehChoice) !== 'undefined') { roomID = mehChoice; }
-
-            // generate new chat id if needed
-            if (typeof(roomID) == 'undefined') {
-                do { roomID = makeid(10); }
-                while (idAlreadyUsed(chatRooms, roomID));
-            }
-
-            // send to generated or found chat room
-            context.siteTitle = "Group Chat";
-            context.socketURL = roomID;
-            res.render('chat', context);
-            context.initMessage = "";
-            return;
-
+        // find available chat
+        let mehChoice, goodChoice, roomID;
+        for (const room in chatRooms) {
+            if      (chatRooms[room]['status'] == 0) { mehChoice = room; }
+            else if (chatRooms[room]['status'] == 1) { goodChoice = room; break; }
         }
-        else {
-            res.redirect('/login');
+        if (typeof(goodChoice) !== 'undefined')     { roomID = goodChoice; }
+        else if (typeof(mehChoice) !== 'undefined') { roomID = mehChoice; }
+
+        // generate new chat id if needed
+        if (typeof(roomID) == 'undefined') {
+            do { roomID = makeid(10); }
+            while (idAlreadyUsed(chatRooms, roomID));
         }
+
+        // send to generated or found chat room
+        context.siteTitle = "Group Chat";
+        context.socketURL = roomID;
+        res.render('chat', context);
+        context.initMessage = "";
+        return;
+
     });
 
 
