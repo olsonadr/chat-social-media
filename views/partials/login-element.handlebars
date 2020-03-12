@@ -27,6 +27,7 @@
       const submitLoginForm = function() {
           username = $('#username').val();
           password = $('#token').val();
+          console.log('please god');
           $.post(   '/login',
                     { username: username, password: password },
                     function(data) {
@@ -43,7 +44,7 @@
       $(document).ready(function() {
           $('#username, #token').keypress(function(e) {
               if (e.keyCode == 13) {
-                  if ($('#init-message-modal').css('display') == 'block')
+                  if ($('#init-message-modal').css('display') != 'none')
                       { $('#init-message-modal-close-button').click(); }
                   else
                       { $('#connect').click(); }
