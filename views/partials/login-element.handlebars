@@ -27,7 +27,6 @@
       const submitLoginForm = function() {
           username = $('#username').val();
           password = $('#token').val();
-          console.log('please god');
           $.post(   '/login',
                     { username: username, password: password },
                     function(data) {
