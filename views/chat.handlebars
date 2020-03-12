@@ -1,12 +1,50 @@
 {{#section "head"}}
-    {{> chat-html-head}}
+  <!-- Common html head stuff -->
+  {{> common-html-head}}
+
+  <!-- Link local style sheet -->
+  <link rel="stylesheet" href="/chat_style.css">
+
+  <!-- Import the Socket.io script file -->
+  <script src="/socket.io/socket.io.js"></script>
 {{/section}}
 
 {{> header }}
 
 <main class="content">
 
-  {{> chat-element }}
+  <div id="chat-container">
+    <ul id="messages"></ul>
+    <form action="/chat" method="POST" id="chat-form">
+      <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
+    </form>
+  </div>
+
+  <!-- this must be included here because of the room socketing -->
+  <script>
+      var socket = io.connect('/chat?id=' + '{{socketURL}}');
+
+      // submit text message without reload/refresh the page
+      $('form').submit(function(e){
+          e.preventDefault(); // prevents page reloading
+          socket.emit('chat_message', $('#txt').val());
+          $('#txt').val('');
+          return false;
+      });
+
+      // append the chat text message
+      socket.on('chat_message', function(msg){
+          $('#messages').append($('<li>').html(msg));
+      });
+
+      // append text if someone is online
+      socket.on('is_online', function(username) {
+          $('#messages').append($('<li>').html(username));
+      });
+
+      // emit that connection has been made
+      socket.emit('chat_join');
+  </script>
 
   {{> init-message-modal }}
 
