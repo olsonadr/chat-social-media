@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html>
-<body>
-  <nav>
-      <ul>
-          <li class="nav">
-              <a href="/search">Home</a>
-    </li>
-    <li class="nav">
-      <a href="/results?text=">Results</a>
-          </li>
-      </ul>
-  </nav>
-	<title>CS361</title>
-	<link href="search_style.css" rel="stylesheet">
+{{#section "head"}}
+  <!-- Common html head stuff -->
+  {{> common-html-head}}
 
-  <h1>Search</h1>
-  <form method="GET" action="/results">
-    <label>Text:</label>
-    <br>
-    <textarea name="text" placeholder="Enter keywords separated by commas" cols="50" rows="5"></textarea>
-    <br>
-    <input type="submit" value="Search">
-  </form>
-</body>
-</html>
+  <!-- Link search styling -->
+  <link href="/search_style.css" rel="stylesheet">
+{{/section}}
+
+{{> header }}
+
+<form id="search-form" method="GET" action="/results">
+  <label>Text:</label>
+  <br>
+  <textarea id="search-input" name="text" placeholder="Enter keywords separated by commas" cols="50" rows="5"></textarea>
+  <br>
+  <input id="search-submit-button" type="submit" value="Search">
+</form>

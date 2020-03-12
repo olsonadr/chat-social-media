@@ -1,38 +1,36 @@
-<body>
-    <nav>
-      <ul>
-          <li class="nav">
-              <a href="/search">Home</a>
-    </li>
-    <li class="nav">
-      <a href="/results?text=">Results</a>
-          </li>
-      </ul>
-    </nav>
-	<title>CS361</title>
-	<link href="search_style.css" rel="stylesheet">
+{{#section "head"}}
+  <!-- Common html head stuff -->
+  {{> common-html-head}}
 
-    {{#unless item}} No search query given
-    {{/unless}}
-    <p>Search results for:
+  <!-- Link search styling -->
+  <link href="/search_style.css" rel="stylesheet">
+{{/section}}
+
+{{> header }}
+
+{{#unless item}}
+  <p>No search query given</p>
+{{/unless}}
+
+<p>
+  Search results for:
+  {{#each item}}
+      {{#if @last}}
+          {{key}}
+      {{else}}
+          {{key}}
+      {{/if}}
+  {{/each}}
+</p>
+
+<ul id="search-results">
     {{#each item}}
-        {{#if @last}}
-            {{key}}
-        {{else}} {{key}},
-        {{/if}} 
+        <li class="search-result-container">
+            <h3 class="search-result-title">This post is about: {{key}}</h3>
+            <p class="search-result-body">text about {{key}}</p>
+        </li>
     {{/each}}
-    </p>
-    
-    
-    <ul>
-        {{#each item}}
-            <li><div class="post">
-                <h3>This post is about: {{key}}</h3>
-                <p>text about {{key}}</p>
-            </div></li>
-        {{/each}}
-    </ul>
-</body>
+</ul>
 
 
 
@@ -76,11 +74,11 @@
 <p>Search results for:
     {{#each item}}
         {{#if @last}} {{key}}
-        {{else}} {{key}}, 
+        {{else}} {{key}},
         {{/if}}
     {{/each}}
 </p>
-    <ul> 
+    <ul>
     {{#each item}}
         <li>
             <div class="post">

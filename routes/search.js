@@ -1,18 +1,26 @@
-module.exports = function(app) {
+module.exports = function(app, sessionChecker, context) {
 
-    app.get('/search',function(req,res){
-        res.render('search_home');
+    app.get('/search', sessionChecker, function(req, res){
+        context.siteTitle = 'Results';
+        res.render('search_home', context);
+        context.initMessage = "";
     });
 
-    app.get('/results',function(req,res){
+    app.get('/results', sessionChecker, function(req, res){
         var params = [];
         var temptext = req.query['text'];
         var result = temptext.split(/, |,/);
-        var content = {};
+        // var content = {};
+
         for(var i in result) {
             params.push({'key':result[i]});
         }
-        content.item = params;
-        res.render('search_results', content);
+
+        context.item = params;
+
+        context.siteTitle = 'Search';
+        res.render('search_results', context);
+        context.initMessage = "";
     });
+
 }

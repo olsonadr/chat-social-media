@@ -1,38 +1,18 @@
-ul {
+ul#search-results {
     list-style: none;
 }
 
-nav {
-    width: 100%;
-}
-
-li.nav {
-
-}
-
-a {
-    display: inline-block;
-    padding: 10px;
-    border: 1px solid black;
-    width: 10%;
-    text-align: center;
-}
-
-body {
-
-}
-
-div.post{
+li.search-result-container{
     border: 2px solid black;
     margin: 5px;
     height: 200px;
 }
 
-div.post>*{
+li.search-result-container>*{
     margin-left: 2px;
 }
 
-div.post > h3 {
+li.search-result-container > h3 {
     border-bottom: 1px solid black;
     margin-top: 0;
 }

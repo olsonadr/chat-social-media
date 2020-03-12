@@ -19,6 +19,9 @@ module.exports = function(app, sessionChecker, indexContext, User, chatRooms, ma
     // Chat Route Middleware
     require('./chat.js')(app, sessionChecker, indexContext, chatRooms, maxCons);
 
+    // Search Route Middleware
+    require('./search.js')(app, sessionChecker, indexContext);
+
     // Logout Route Middleware
     require('./logout.js')(app);
 
