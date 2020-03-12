@@ -10,9 +10,8 @@ if (!global.hasOwnProperty('db')) {
         sequelize = new Sequelize(process.env.DATABASE_URL, {
           dialect:  'postgres',
           protocol: 'postgres',
-          port:     5432,
-          host:     "ec2-34-200-116-132.compute-1.amazonaws.com",
-          logging:  true //false
+          port:     5432
+          // host:     "ec2-34-200-116-132.compute-1.amazonaws.com"
         });
     }
     else {
@@ -23,9 +22,14 @@ if (!global.hasOwnProperty('db')) {
     global.db = {
         Sequelize: Sequelize,
         sequelize: sequelize,
-        User:      sequelize.import(__dirname + '/user')
+        User:      sequelize.import('./user.js')
         // add your other models here
     };
+
+    // create all the defined tables in the specified database.
+    sequelize.sync()
+        .then(() => console.log('users table has been successfully created, if one doesn\'t exist'))
+        .catch(error => console.log('This error occured', error));
 }
 
 module.exports = global.db;
