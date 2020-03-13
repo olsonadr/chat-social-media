@@ -83,16 +83,16 @@ makepost.addEventListener('click', function(event){
    var postRequest = new XMLHttpRequest();
    var requestURL = '/add-post';
    postRequest.open('POST', requestURL);
-  var requestBody = JSON.stringify({
+    var requestBody = JSON.stringify({
        title: title_input.value,
        group: group_input.value,
        bodytext: body_input.value,
        url:image.src,
        nsfw: nsfw.value,
+       check: "wow"
     });
    postRequest.setRequestHeader('Content-Type', 'application/json');
-   postRequest.addEventListener('load', function (event) {
-   });
+   postRequest.addEventListener('load', function (event) {});
    postRequest.send(requestBody);
    console.log('sent to database');
    //End of server part
