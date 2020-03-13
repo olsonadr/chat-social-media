@@ -51,6 +51,7 @@ module.exports = function(sequelize, DataTypes) {
 
     // Add parent password method
     User.prototype.vParPass = function(password) {
+      console.log(`password is ${bcrypt.compareSync(password, this.parentPass)}`)
       return bcrypt.compareSync(password, this.parentPass);
     }
 
@@ -63,7 +64,8 @@ module.exports = function(sequelize, DataTypes) {
 
     User.prototype.enableParMode = function(password) {
       if (this.parentMode == null || this.parentMode == false) {
-        this.update({ parentPass: password, parentMode: true });
+        const salt = bcrypt.genSaltSync();
+        this.update({ parentPass: bcrypt.hashSync(password, salt), parentMode: true });
       }
     }
 
