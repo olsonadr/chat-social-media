@@ -27,8 +27,10 @@
       // submit text message without reload/refresh the page
       $('form').submit(function(e){
           e.preventDefault(); // prevents page reloading
-          socket.emit('chat_message', $('#txt').val());
-          $('#txt').val('');
+          if ($('#txt').val() != "") {
+            socket.emit('chat_message', $('#txt').val());
+            $('#txt').val('');
+          }
           return false;
       });
 
