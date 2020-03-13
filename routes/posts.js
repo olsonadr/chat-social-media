@@ -15,8 +15,10 @@ module.exports = function(app, sessionChecker, context, User, post){
         console.log(context.postData);
         context.postData.push({
         	title: req.body.title,
+          group: req.body.group,
         	bodytext: req.body.bodytext,
         	url: req.body.url,
+          nsfw: req.body.nsfw,
         });
         // console.log(context.postData);
         fs.writeFile(
