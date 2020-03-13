@@ -22,6 +22,9 @@ module.exports = function(app, sessionChecker, indexContext, User, chatRooms, ma
     // Post Listing and Adding Middleware
     require('./posts.js')(app, sessionChecker, indexContext);
 
+    // Profile Page Middleware
+    require('./profile.js')(app, sessionChecker, indexContext, User);
+
     // Logout Route Middleware
     require('./logout.js')(app);
 

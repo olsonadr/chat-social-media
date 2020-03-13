@@ -8,7 +8,7 @@ module.exports = function(app, sessionChecker, context, User) {
             context.initMessage = "";
             return;
         })
-        .post((req, res) => {
+        .post(sessionChecker, (req, res) => {
             var username = req.body.username;
             var password = req.body.password;
 

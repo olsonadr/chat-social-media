@@ -8,7 +8,7 @@ var modalclose = document.getElementById('modal-close');
 var save = document.getElementById('modal-accept');
 
 function remove(){
-  console.log(parent_password);
+  // console.log(parent_password);
 
   parent_password.value = '';
 }
@@ -50,19 +50,29 @@ modalcancel.addEventListener('click', function(event){
   hide();
 })
 save.addEventListener('click', function(event){
-  console.log('wow');
+  // console.log('wow');
  if(parameters()){
    save_settings();
    //code from here to next comment is server part
-   var postRequest = new XMLHttpRequest();
-   var requestURL = '/save_settings';
-   postRequest.open('POST', requestURL);
-   var requestBody = JSON.stringify({
-     nsfw_allow: nsfw_allow.value,
-   });
-   postRequest.setRequestHeader('Content-Type', 'application/json');
-   postRequest.addEventListener('load', function (event) {
-   });
+
+   // post new post to the server
+   $.post(   '/profile',
+             {
+               nsfw_allow: nsfw_allow.value,
+               password:  parent_password.value
+             }
+         );
+
+   // var postRequest = new XMLHttpRequest();
+   // var requestURL = '/save_settings';
+   // postRequest.open('POST', requestURL);
+   // var requestBody = JSON.stringify({
+   //   nsfw_allow: nsfw_allow.value,
+   // });
+   // postRequest.setRequestHeader('Content-Type', 'application/json');
+   // postRequest.addEventListener('load', function (event) {
+   // });
+
    // postRequest.send(requestBody);
    // console.log('sent to database');
    //End of server part

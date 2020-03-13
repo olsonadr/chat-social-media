@@ -21,6 +21,14 @@ module.exports = function(sequelize, DataTypes) {
         votes: {
             type: DataTypes.ARRAY(DataTypes.BIGINT),
             defaultValue: []
+        },
+        parentMode: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        parentPass: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     }, {
         hooks: {
@@ -36,9 +44,27 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    // Add password method
+    // Add user password method
     User.prototype.vPass = function(password) {
       return bcrypt.compareSync(password, this.password);
+    }
+
+    // Add parent password method
+    User.prototype.vParPass = function(password) {
+      return bcrypt.compareSync(password, this.parentPass);
+    }
+
+    // Clear parent mode method
+    User.prototype.disableParMode = function(password) {
+      if (this.parentMode == true && this.vParPass(password)) {
+        this.update({ parentPass: null, parentMode: false });
+      }
+    }
+
+    User.prototype.enableParMode = function(password) {
+      if (this.parentMode == null || this.parentMode == false) {
+        this.update({ parentPass: password, parentMode: true });
+      }
     }
 
     // Add check highscore method
