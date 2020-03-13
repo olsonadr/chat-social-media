@@ -1,6 +1,7 @@
 module.exports = function(app, sessionChecker, context, User, post){
 
   var postData = require('../posts') //json
+  var fs = require ('fs');
 
   app.route('/posts')
       .get(sessionChecker, function (req, res, next) {
@@ -16,8 +17,10 @@ module.exports = function(app, sessionChecker, context, User, post){
         console.log(postData);
         postData.push({
         	title: req.body.title,
+          group: req.body.group,
         	bodytext: req.body.bodytext,
         	url: req.body.url,
+          nsfw: req.body.nsfw,
         });
         console.log(postData);
         fs.writeFile(
