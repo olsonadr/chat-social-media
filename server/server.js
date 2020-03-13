@@ -30,15 +30,23 @@ var regeneratorRuntime = require('regenerator-runtime');
 // // //     PROGRAM PARAMETERS     // // //
 // // // // // // // // // // // // // // //
 
-// Set misc params
+// Express public directory for static delivery
 const publicDir = path.join(__dirname, '../public');
-const port	    = process.env.PORT || 3000;
-let chatRooms   = {};
-const maxCons   = 5;
+
+// Port on which to listen for connections
+const port = process.env.PORT || 3000;
+
+// Chatroom parameters
+let chatRooms = {}; // Filled with instances of chatrooms
+const maxCons = 5;  // Max connections to a single chatroom
+
+// Default destinations for authorized and non-authorzed requests
+const defaultAuthedDest     = "/posts";
+const defaultNonAuthedDest  = "/login";
 
 // Handlebars context for html rendering
 var indexContext = {
-    helpers: {
+    helpers: { // handlebars helper functions
         section: function(name, options) {
             if(!this._sections) this._sections = {};
             this._sections[name] = options.fn(this);
@@ -48,7 +56,7 @@ var indexContext = {
             return (required == 'any') || (mode == required);
         }
     },
-    headerDropdownMenus: [
+    headerDropdownMenus: [ // dropdown menus in the header element
         {
             id: "links-menu",
             iconSource: "/img/menu_icon.png",
@@ -65,11 +73,10 @@ var indexContext = {
                      {label: "Signup",  href: "/signup",  mode: "logged-out"} ]
         }
     ],
-    headerDropdownMode: "logged-out",
-    siteLogoSource:   "/BLK_BOARD_logo.jpg",
-    siteTitle:        "",
-    initData:         "",
-    initMessage:      ""
+    headerDropdownMode: "logged-out", // what set of options should be listed
+    siteLogoSource:   "/BLK_BOARD_logo.jpg", // site logo image source
+    siteTitle:        "", // title on tab and on header
+    initMessage:      "" //message to show on page load
 };
 
 
@@ -91,7 +98,7 @@ var User = db.User;
 // // // // // // // // // // // // // // //
 
 // Setup misc and Socket.io middleware
-var middleware = require('../middleware/')(app, io, session, indexContext, db.User, chatRooms, maxCons);
+var middleware = require('../middleware/')(app, io, session, indexContext, db.User, chatRooms, maxCons, defaultAuthedDest, defaultNonAuthedDest);
 
 // User-session checker middleware
 var sessionChecker = middleware.sessionChecker;
