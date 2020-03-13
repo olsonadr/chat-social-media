@@ -48,7 +48,6 @@ function parameters(){
    nsfw.value = ''
  }
  return true;
-
 }
 
 function createpost(){
@@ -69,36 +68,33 @@ function createpost(){
 
 addpost.addEventListener('click', function(event){
   unhide();
-})
+});
 modalclose.addEventListener('click', function(event){
   hide();
-})
+});
 modalcancel.addEventListener('click', function(event){
   hide();
-})
+});
 makepost.addEventListener('click', function(event){
  if(parameters()){
    createpost();
-   //code from here to next comment is server part
-   var postRequest = new XMLHttpRequest();
-   var requestURL = '/add-post';
-   postRequest.open('POST', requestURL);
-    var requestBody = JSON.stringify({
-       title: title_input.value,
-       group: group_input.value,
-       bodytext: body_input.value,
-       url:image.src,
-       nsfw: nsfw.value,
-       check: "wow"
-    });
-   postRequest.setRequestHeader('Content-Type', 'application/json');
-   postRequest.addEventListener('load', function (event) {});
-   postRequest.send(requestBody);
-   console.log('sent to database');
-   //End of server part
+
+   // post new post to the server
+   $.post(   '/add-post',
+             {
+               title: title_input.value,
+               group: group_input.value,
+               bodytext: body_input.value,
+               url:image.src,
+               nsfw: nsfw.value
+             }
+         );
+
+   // hide the makepost modal
    hide();
+
  }
  else{
    window.alert('All parameters must be filled!');
  }
-})
+});

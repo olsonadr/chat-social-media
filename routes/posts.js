@@ -11,8 +11,7 @@ module.exports = function(app, sessionChecker, context, User, post){
 
   app.route('/add-post')
       .post(sessionChecker, function (req, res, next) {
-        console.log(req.body);
-        console.log(context.postData);
+        // add new post from request to context
         context.postData.push({
         	title: req.body.title,
           group: req.body.group,
@@ -20,15 +19,16 @@ module.exports = function(app, sessionChecker, context, User, post){
         	url: req.body.url,
           nsfw: req.body.nsfw,
         });
-        // console.log(context.postData);
+
+        // write to file of posts
         fs.writeFile(
-        	'../posts.json',
+        	__dirname+'/../posts.json',
         	JSON.stringify(context.postData, 2, 2),
         	function (err) {
         		if (!err) {
-        		res.status(200).send();
+          		res.status(200).send();
         		} else {
-        		res.status(500).send("Failed to write data on server side.");
+          		res.status(500).send("Failed to write data on server side.");
         		}
         	}
         );
