@@ -10,7 +10,6 @@ module.exports = function(app, sessionChecker, context) {
         var params = [];
         var temptext = req.query['text'];
         var result = temptext.split(/, |,/);
-        // var content = {};
 
         for(var i in result) {
             params.push({'key':result[i]});
