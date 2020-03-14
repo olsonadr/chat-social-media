@@ -178,12 +178,22 @@
   /* padding: 0  */
 }
 
+.post-popup-container {
+  position: relative;
+  left: 50px;
+  display: none;
+}
+
+.post-popup-container:hover {
+  display: block;
+}
+
 .post-body {
   /* width: 100%; */
   padding-left: 10px;
   padding-right: 10px;
   overflow-wrap: break-word;
-  display: none;
+
 }
 
 .post-tag {
