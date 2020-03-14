@@ -44,7 +44,7 @@ li>h3.search-result-title {
 }
 
 li.search-result-container{
-    background-color: rgb(236, 235, 235);
+    background-color: var(--primarycolor);
     text-align: left;
 }
 
