@@ -72,11 +72,19 @@ a:hover {
   padding-top: 5px;
 }
 
-.site-title {
+#big-site-title {
   font-family: "Roboto Slab", serif;
   font-size: 36px;
-  font-weight: 500;
-  margin: 0 0 0 20px;
+  font-weight: bold;
+  margin: 0 20px 0 0;
+  padding: 0 0 0 5px;
+  padding-top: 0px;
+}
+
+.site-title {
+  font-family: "Roboto Slab", serif;
+  font-size: 30px;
+  font-weight: 200;
   padding-top: 0px;
 }
 
