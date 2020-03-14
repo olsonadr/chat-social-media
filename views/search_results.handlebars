@@ -1,0 +1,91 @@
+{{#section "head"}}
+  <!-- Common html head stuff -->
+  {{> common-html-head}}
+
+  <!-- Link search styling -->
+  <link href="/search_style.css" rel="stylesheet">
+{{/section}}
+
+{{> header }}
+<main class="content">
+{{#unless item}}
+  <p>No search query given</p>
+{{/unless}}
+
+<p>
+  Search results for:
+  {{#each item}}
+      {{#if @last}}
+          {{key}}
+      {{else}}
+          {{key}}
+      {{/if}}
+  {{/each}}
+</p>
+
+<ul id="search-results">
+    {{#each item}}
+        <li class="search-result-container box">
+            <h3 class="search-result-title">This post is about: {{key}}</h3>
+            <p class="search-result-body">text about {{key}}</p>
+        </li>
+    {{/each}}
+</ul>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<p>Search results for:
+    {{#each item}}
+        {{#if @last}} {{key}}
+        {{else}} {{key}},
+        {{/if}}
+    {{/each}}
+</p>
+    <ul>
+    {{#each item}}
+        <li>
+            <div class="post">
+                <h3> Post about {{key}}</h3>
+                <p>This is about {{key}}</p>
+            </div>
+        </li>
+    {{/each}}
+    </ul>
+-->
