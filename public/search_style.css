@@ -20,12 +20,12 @@ li>h3.search-result-title {
 #form-container {
     text-align: center;
     display: block;
-    
+
 }
 
 #search-title {
     margin: 10px;
-    
+
 }
 
 #search-entry {
@@ -41,6 +41,8 @@ li>h3.search-result-title {
     height: 200px;
     margin: 5px;
     box-shadow: 0px 0px 15px grey;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
 }
 
 li.search-result-container{
