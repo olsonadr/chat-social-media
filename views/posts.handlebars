@@ -1,0 +1,71 @@
+{{#section "head"}}
+  <!-- Common html head stuff -->
+  {{> common-html-head}}
+
+  <!-- Link to static javascript -->
+  <script src="/scripts/posts/posts.js" defer></script>
+
+  <!-- Post css style file -->
+  <link rel="stylesheet" href="/post_style.css"></link>
+{{/section}}
+
+{{> header }}
+
+<main class="content">
+    <section id="display-posts">
+      <div id="posts">
+        {{#each postData}}
+            {{> post}}
+        {{/each}}
+      </div>
+    </section>
+
+  <button type="button" id="make-post-button"><i>Add Post</i></button>
+
+
+  <div id="modal-backdrop" class="hidden modal-backdrop"></div>
+    <div id="post-content-modal" class="hidden modal-container">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h3>Create Post</h3>
+          <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+        </div>
+        <div class="modal-body">
+
+          <div class="input-element">
+            <label for="title-input">Title</label>
+            <input type="text" id="title-input">
+          </div>
+          <div class="input-element">
+            <label for="group-input">Group</label>
+            <input type="text" id="group-input">
+          </div>
+          <div class="input-element">
+            <label for="body-input">Body Text</label>
+            <input type="text" id="body-input">
+          </div>
+          <div class="input-element">
+            <label for="image-input">Image URL</label>
+            <input type="text" id="image-input">
+          </div>
+          <div class= "input-element">
+            <input type="file"  accept="image/*" onchange="loadFile(event)" id="file-input" name="image">
+          </div>
+          <div class="input-element">
+            <label for="nsfw" class="container">Tag this post as NSFW
+              <input type="checkbox" id="nsfw" name="nsfw">
+              <span class="checkmark"></span>
+            </label><br>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="modal-cancel" class="modal-hide-button action-button">Cancel</button>
+          <button type="button" id="modal-accept" class="action-button">Post</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {{> init-message-modal }}
+</main>

@@ -23,7 +23,8 @@ if (!global.hasOwnProperty('db')) {
     global.db = {
         Sequelize: Sequelize,
         sequelize: sequelize,
-        User:      sequelize.import('./user.js')
+        User:      sequelize.import('./user.js'),
+        Post:      sequelize.import('./post.js')
         // add your other models here
     };
 
