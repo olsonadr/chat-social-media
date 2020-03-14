@@ -91,6 +91,9 @@ var db = require('../models/');
 // User model for authentication
 var User = db.User;
 
+// Post model for post listing
+var Post = db.Post;
+
 
 
 // // // // // // // // // // // // // // //
@@ -126,7 +129,7 @@ app.use(cookieParser());
 app.use(express.static(publicDir));
 
 // All express route middleware
-require('../routes/')(app, sessionChecker, indexContext, db.User, chatRooms, maxCons);
+require('../routes/')(app, sessionChecker, indexContext, db.User, db.Post, chatRooms, maxCons);
 
 
 

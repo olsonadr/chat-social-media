@@ -3,7 +3,10 @@
   {{> common-html-head}}
 
   <!-- Link to static javascript -->
-  <script src="/scripts/posts/index.js" defer></script>
+  <script src="/scripts/posts/posts.js" defer></script>
+
+  <!-- Post css style file -->
+  <link rel="stylesheet" href="/post_style.css"></link>
 {{/section}}
 
 {{> header }}
@@ -12,10 +15,11 @@
     <section id="display-posts">
       <div id="posts">
         {{#each postData}}
-            {{> posts}}
+            {{> post}}
         {{/each}}
       </div>
     </section>
+    
   <button type="button" id="make-post-button"><i>Add Post</i></button>
 
 

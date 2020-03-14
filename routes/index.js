@@ -1,4 +1,4 @@
-module.exports = function(app, sessionChecker, indexContext, User, chatRooms, maxCons) {
+module.exports = function(app, sessionChecker, indexContext, User, Post, chatRooms, maxCons) {
 
     // // // // // // // // // // // // // // //
     // // //       EXPRESS ROUTES       // // //
@@ -20,7 +20,7 @@ module.exports = function(app, sessionChecker, indexContext, User, chatRooms, ma
     require('./chat.js')(app, sessionChecker, indexContext, chatRooms, maxCons);
 
     // Post Listing and Adding Middleware
-    require('./posts.js')(app, sessionChecker, indexContext);
+    require('./posts.js')(app, sessionChecker, indexContext, User, Post);
 
     // Profile Page Middleware
     require('./profile.js')(app, sessionChecker, indexContext, User);

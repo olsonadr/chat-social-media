@@ -77,16 +77,20 @@ modalcancel.addEventListener('click', function(event){
 });
 makepost.addEventListener('click', function(event){
  if(parameters()){
-   createpost();
+   // createpost();
 
    // post new post to the server
    $.post(   '/add-post',
-             {
-               title: title_input.value,
+             { title: title_input.value,
                group: group_input.value,
                bodytext: body_input.value,
                url:image.src,
-               nsfw: nsfw.value
+               nsfw: nsfw.value },
+             function(data) {
+               if (typeof data.redirect == 'string') {
+                     if (data.redirect == 'please refresh') { location.reload(); }
+                     else { window.location.href = data.redirect; }
+                   }
              }
          );
 

@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         votes: {
             type: DataTypes.ARRAY(DataTypes.BIGINT),
+            allowNull: false,
             defaultValue: []
         },
         parentMode: {
@@ -82,8 +83,8 @@ module.exports = function(sequelize, DataTypes) {
 
     // Check if user has voted on a post
     User.prototype.hasVotedOn = function(postID) {
-      this.votes.forEach((item) => {
-          if (item && postID == item) { return true; }
+      this.votes.forEach((voteID) => {
+          if (voteID && postID == voteID) { return true; }
       });
 
       return false;

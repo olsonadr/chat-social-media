@@ -2,15 +2,21 @@ module.exports = function(sequelize, DataTypes) {
 
     // Includes
     var bcrypt = require('bcrypt');
+    var moment = require('moment');
 
     // setup User model and its fields
     var Post = sequelize.define('posts', {
         id: {
             type: DataTypes.BIGINT,
-            autoIncrement: true
+            autoIncrement: true,
+            primaryKey: true
         },
         title: {
             type: DataTypes.STRING,
+            allowNull: false
+        },
+        author: {
+            type: 'citext',
             allowNull: false
         },
         tags: {
@@ -35,6 +41,12 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             allowNull: false,
             defaultValue: 0
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            get: function() {
+                return moment(this.getDataValue('createdAt')).format('MMM Do[,] YYYY');
+            }
         }
     });
 
