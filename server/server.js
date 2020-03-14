@@ -129,7 +129,7 @@ app.use(cookieParser());
 app.use(express.static(publicDir));
 
 // All express route middleware
-require('../routes/')(app, sessionChecker, indexContext, db.User, db.Post, chatRooms, maxCons);
+require('../routes/')(app, sessionChecker, indexContext, db.User, db.Post, chatRooms, maxCons, defaultAuthedDest, defaultNonAuthedDest);
 
 
 

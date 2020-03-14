@@ -8,6 +8,9 @@
     --backgroundcolor: #fcfcff;
     --bigtextcolor: #333;
 
+    --scrollbarBG: #CFD8DC;
+    --thumbBG: #90A4AE;
+
     /* --primarycolor: white;
     --secondarycolor: grey;
     --accentcolor: orange;
@@ -30,6 +33,7 @@ body {
   height: 100vh;
   display: block;
   overflow: hidden;
+  /* padding-bottom: 20px; */
 }
 
 a {
@@ -234,7 +238,36 @@ a:hover {
   /* margin: 20px; */
   /* margin-bottom: -10px; */
   padding: 0;
+  /* padding-bottom: 50px; */
 
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+.content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+
+
+
+
+.content:after {
+  content: "";
+  display: block;
+  height: 50px;
+  /* background-color: blue; */
+  width: 100%;
 }
 
 #game-canvas {

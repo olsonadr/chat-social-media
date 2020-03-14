@@ -1,4 +1,4 @@
-module.exports = function(app, sessionChecker, indexContext, User, Post, chatRooms, maxCons) {
+module.exports = function(app, sessionChecker, indexContext, User, Post, chatRooms, maxCons, defaultAuthedDest, defaultNonAuthedDest) {
 
     // // // // // // // // // // // // // // //
     // // //       EXPRESS ROUTES       // // //
@@ -7,7 +7,7 @@ module.exports = function(app, sessionChecker, indexContext, User, Post, chatRoo
     // Index Route
     app.get('/', sessionChecker, function(req, res) {
         // Redirect to dashboard page (after sessionChecker)
-        res.redirect('/login');
+        res.redirect(defaultAuthedDest);
     });
 
     // Signup Route Middleware

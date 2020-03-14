@@ -27,7 +27,7 @@ module.exports = function(app, sessionChecker, context, User) {
                     }
                     else {
                         req.session.user = user.dataValues;
-                        res.send({redirect: '/chat'});
+                        res.send({redirect: '/'});
                         return;
                     }
                 });
