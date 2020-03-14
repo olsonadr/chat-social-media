@@ -52,6 +52,7 @@
 
 #messages li {
   padding: 5px 10px;
+  overflow-wrap: break-word;
 }
 
 #messages li:nth-child(odd) {
@@ -61,7 +62,7 @@
 #chat-container {
   position: absolute;
   display: block;
-  width: 80%;
+  width: 60%;
   height: 80%;
   padding: 10px 10px 47px 10px;
 
