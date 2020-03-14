@@ -181,7 +181,8 @@
 .post-popup-container {
   position: relative;
   left: 50px;
-  display: none;
+  /* display: none; */
+  display: block;
 }
 
 .post-popup-container:hover {

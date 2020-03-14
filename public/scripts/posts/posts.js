@@ -13,6 +13,19 @@ var makepost = document.getElementById('modal-accept');
 var posts = document.getElementsByClassName('post');
 var usefile;
 
+$(document).ready(function() {
+  $('.post-popup-container').hide();
+
+  $('.post').mouseenter(function(event) {
+      $(this).children('.post-popup-container').show();
+  });
+
+  $('.post').mouseleave(function(event) {
+      $(this).children('.post-popup-container').hide();
+  });
+});
+
+
 function remove(){
   url.value = group_input.value = title_input.value = body_input.value = image.src = '';
   nsfw.checked = false;
