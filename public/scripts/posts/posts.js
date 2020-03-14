@@ -16,14 +16,26 @@ var usefile;
 $(document).ready(function() {
   $('.post-popup-container').hide();
 
-  $('.post').mouseenter(function(event) {
+  $('.post').mouseenter(function() {
       $(this).children('.post-popup-container').show();
   });
 
-  $('.post').mouseleave(function(event) {
+  $('.post').mouseleave(function() {
       $(this).children('.post-popup-container').hide();
   });
+
+  $('.post').click(function(event) {
+      var title = $(this).find('.post-title');
+      if (!$(event.target).is(title) && !$(event.target).is($('.post-popup-container-secret-background'))) {
+        title.trigger("click");
+      };
+  });
+
+  $('.post-title').click(function() {
+      window.location.href = $(this).attr('href');
+  });
 });
+
 
 
 function remove(){
