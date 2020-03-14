@@ -10,17 +10,11 @@
           {{/if}}
         </div>
 
-        <a href="#" class="post-title">{{title}}</a>
-        <p>by {{author}}</p>
+        <a href="#{{title}}" class="post-title">{{title}}</a>
+        <p class="post-author">by {{author}}</p>
       </div>
 
       <div class="post-info-container right">
-        <div class="post-tags-container">
-          {{#each tags}}
-            <div class="post-tag {{this}}-tag">{{this}}</div>
-          {{/each}}
-        </div>
-
         <div class="post-date-container">
           <p>{{createdAt}}</p>
         </div>
@@ -36,8 +30,17 @@
       </div>
 
       <div class="post-popup-container">
+        <div class="post-popup-container-secret-background"></div>
+        
         <div class="post-group">{{group}}</div>
+
         <div class="post-body">"{{body}}"</div>
+
+        <div class="post-tags-container">
+          {{#each tags}}
+            <div class="post-tag {{this}}-tag">{{this}}</div>
+          {{/each}}
+        </div>
       </div>
 
   <!-- </div> -->

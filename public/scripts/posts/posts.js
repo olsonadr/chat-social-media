@@ -13,6 +13,31 @@ var makepost = document.getElementById('modal-accept');
 var posts = document.getElementsByClassName('post');
 var usefile;
 
+$(document).ready(function() {
+  $('.post-popup-container').hide();
+
+  $('.post').mouseenter(function() {
+      $(this).children('.post-popup-container').show();
+  });
+
+  $('.post').mouseleave(function() {
+      $(this).children('.post-popup-container').hide();
+  });
+
+  $('.post').click(function(event) {
+      var title = $(this).find('.post-title');
+      if (!$(event.target).is(title) && !$(event.target).is($('.post-popup-container-secret-background'))) {
+        title.trigger("click");
+      };
+  });
+
+  $('.post-title').click(function() {
+      window.location.href = $(this).attr('href');
+  });
+});
+
+
+
 function remove(){
   url.value = group_input.value = title_input.value = body_input.value = image.src = '';
   nsfw.checked = false;

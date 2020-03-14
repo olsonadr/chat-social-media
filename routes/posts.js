@@ -38,7 +38,9 @@ module.exports = function(app, sessionChecker, context, User, Post){
                     postData.hasVotedOn = user.hasVotedOn(postData.id);
 
                     // add postdata to rendering context
-                    context.postData.push(postData);
+                    if (!user.dataValues.parentMode || !postData.tags.includes('nsfw')) {
+                      context.postData.push(postData);
+                    }
                 });
 
                 // console.log(context.postData);
