@@ -7,9 +7,9 @@ var body_input = document.getElementById('body-input');
 var url = document.getElementById('image-input');
 var image = document.getElementById('file-input');
 var nsfw = document.getElementById('nsfw');
-var modalcancel = document.getElementById('modal-cancel');
-var modalclose = document.getElementById('modal-close');
-var makepost = document.getElementById('modal-accept');
+var modalcancel = document.getElementById('modal-cancel-button');
+var modalclose = document.getElementsByClassName('modal-close');
+var makepost = document.getElementsByClassName('modal-accept-button');
 var posts = document.getElementsByClassName('post');
 var usefile;
 
@@ -33,6 +33,36 @@ $(document).ready(function() {
 
   $('.post-title').click(function() {
       window.location.href = $(this).attr('href');
+  });
+
+  $('.modal-close, .modal-cancel-button').click(function() { hide(); });
+
+  $('.modal-accept-button').click(function(event){
+   if(parameters()){
+     // createpost();
+
+     // post new post to the server
+     $.post(   '/add-post',
+               { title: title_input.value,
+                 group: group_input.value,
+                 bodytext: body_input.value,
+                 url:image.src,
+                 nsfw: nsfw.value },
+               function(data) {
+                 if (typeof data.redirect == 'string') {
+                       if (data.redirect == 'please refresh') { location.reload(); }
+                       else { window.location.href = data.redirect; }
+                     }
+               }
+           );
+
+     // hide the makepost modal
+     hide();
+
+   }
+   else{
+     window.alert('All parameters must be filled!');
+   }
   });
 });
 
@@ -94,36 +124,11 @@ function createpost(){
 addpost.addEventListener('click', function(event){
   unhide();
 });
-modalclose.addEventListener('click', function(event){
-  hide();
-});
-modalcancel.addEventListener('click', function(event){
-  hide();
-});
-makepost.addEventListener('click', function(event){
- if(parameters()){
-   // createpost();
-
-   // post new post to the server
-   $.post(   '/add-post',
-             { title: title_input.value,
-               group: group_input.value,
-               bodytext: body_input.value,
-               url:image.src,
-               nsfw: nsfw.value },
-             function(data) {
-               if (typeof data.redirect == 'string') {
-                     if (data.redirect == 'please refresh') { location.reload(); }
-                     else { window.location.href = data.redirect; }
-                   }
-             }
-         );
-
-   // hide the makepost modal
-   hide();
-
- }
- else{
-   window.alert('All parameters must be filled!');
- }
-});
+// modalclose.forEach(function(element) {
+//   element.addEventListener('click', function(event){
+//     hide();
+//   });
+// });
+// modalcancel.addEventListener('click', function(event){
+//   hide();
+// });

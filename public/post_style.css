@@ -11,11 +11,11 @@
   transform: translate(-50%, 0);
 
   border: 1px solid rgba(27,31,35,.15);
-  border-radius: 6px;
+  border-radius: 10px;
   background-clip: padding-box;
   box-shadow: 0 1px 15px rgba(27,31,35,.1);
 
-  height: 200vh;
+  /* height: 200vh; */
 }
 
 .posts {
@@ -25,13 +25,13 @@
 .post:first-of-type {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .post:last-of-type {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   border: 1px solid #dadada;
 }
 
@@ -244,8 +244,12 @@
 
 #make-post-button {
   position: fixed;
-  left: 75px;
+  left: 50px;
   bottom: 50px;
-  border-radius: 5px;
+  border-radius: 10px;
+  cursor: pointer;
   box-shadow: 0 1px 15px rgba(27,31,35,.1);
+  background-color: var(--accentcolor);
+  border-color: var(--secondarycolor);
+  height: 35px;
 }
