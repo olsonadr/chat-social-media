@@ -1,0 +1,20 @@
+{{#section "head"}}
+  <!-- Common html head stuff -->
+  {{> common-html-head}}
+
+  <!-- Link search styling -->
+  <link href="/search_style.css" rel="stylesheet">
+{{/section}}
+
+{{> header }}
+
+<main class="content">
+  <div id="form-container">
+    <form class="box" id="search-container" method="GET" action="/results">
+      <p id="search-title">Search keywords:</p>
+      <textarea id="search-entry" name="text" placeholder="Enter keywords separated by commas"></textarea>
+      <br>
+      <input type="submit" value="Search">
+    </form>
+  </div>
+</main>

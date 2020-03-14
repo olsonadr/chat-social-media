@@ -20,7 +20,7 @@
       </div>
     </section>
 
-  <button type="button" id="make-post-button"><i>Add Post</i></button>
+  <button type="button" id="make-post-button">Add Post</button>
 
 
   <div id="modal-backdrop" class="hidden modal-backdrop"></div>
@@ -28,40 +28,38 @@
       <div class="modal-dialog">
         <div class="modal-header">
           <h3>Create Post</h3>
-          <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+          <button type="button" class="modal-close modal-hide-button">&times;</button>
         </div>
         <div class="modal-body">
 
           <div class="input-element">
             <label for="title-input">Title</label>
-            <input type="text" id="title-input">
+            <input type="text" id="title-input" placeholder="post title">
           </div>
           <div class="input-element">
             <label for="group-input">Group</label>
-            <input type="text" id="group-input">
+            <input type="text" id="group-input" placeholder="group">
           </div>
           <div class="input-element">
             <label for="body-input">Body Text</label>
-            <input type="text" id="body-input">
+            <input type="text" id="body-input" placeholder="body text">
           </div>
           <div class="input-element">
             <label for="image-input">Image URL</label>
-            <input type="text" id="image-input">
+            <input type="text" id="image-input" placeholder="image source url">
           </div>
           <div class= "input-element">
             <input type="file"  accept="image/*" onchange="loadFile(event)" id="file-input" name="image">
           </div>
           <div class="input-element">
-            <label for="nsfw" class="container">Tag this post as NSFW
-              <input type="checkbox" id="nsfw" name="nsfw">
-              <span class="checkmark"></span>
-            </label><br>
+            <label id="nsfw-label" for="nsfw" class="container">Tag this post as NSFW</label>
+            <input type="checkbox" id="nsfw" name="nsfw">
           </div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" id="modal-cancel" class="modal-hide-button action-button">Cancel</button>
-          <button type="button" id="modal-accept" class="action-button">Post</button>
+          <button type="button" class="modal-cancel-button modal-hide-button action-button">Cancel</button>
+          <button type="button" class="modal-accept-button action-button">Post</button>
         </div>
 
       </div>
