@@ -74,7 +74,7 @@ var indexContext = {
         }
     ],
     headerDropdownMode: "logged-out", // what set of options should be listed
-    siteLogoSource:   "/BLK_BOARD_logo.jpg", // site logo image source
+    siteLogoSource:   "/img/benny.png", // site logo image source
     siteTitle:        "", // title on tab and on header
     initMessage:      "" //message to show on page load
 };
