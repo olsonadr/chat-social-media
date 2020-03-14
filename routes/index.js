@@ -1,4 +1,4 @@
-module.exports = function(app, sessionChecker, indexContext, User, chatRooms, maxCons) {
+module.exports = function(app, sessionChecker, indexContext, User, Post, chatRooms, maxCons, defaultAuthedDest, defaultNonAuthedDest) {
 
     // // // // // // // // // // // // // // //
     // // //       EXPRESS ROUTES       // // //
@@ -7,7 +7,7 @@ module.exports = function(app, sessionChecker, indexContext, User, chatRooms, ma
     // Index Route
     app.get('/', sessionChecker, function(req, res) {
         // Redirect to dashboard page (after sessionChecker)
-        res.redirect('/login');
+        res.redirect(defaultAuthedDest);
     });
 
     // Signup Route Middleware
@@ -21,6 +21,12 @@ module.exports = function(app, sessionChecker, indexContext, User, chatRooms, ma
 
     // Search Route Middleware
     require('./search.js')(app, sessionChecker, indexContext);
+  
+    // Post Listing and Adding Middleware
+    require('./posts.js')(app, sessionChecker, indexContext, User, Post);
+
+    // Profile Page Middleware
+    require('./profile.js')(app, sessionChecker, indexContext, User);
 
     // Logout Route Middleware
     require('./logout.js')(app);
