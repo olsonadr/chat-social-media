@@ -219,5 +219,10 @@
 }
 
 #make-post-button {
-  display: none;
+  position: fixed;
+  left: 75px;
+  bottom: 50px;
+  border-radius: 5px;
+  box-shadow: 0 1px 15px rgba(27,31,35,.1);
+
 }
