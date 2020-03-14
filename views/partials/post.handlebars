@@ -1,0 +1,44 @@
+<div class="post">
+  <!-- <div class="post-contents"> -->
+
+      <div class="post-info-container left">
+        <div class="post-image-container">
+          {{#if imageIncluded}}
+            <img class="post-image" src="{{image}}">
+          {{else}}
+            <img class="post-image" src="/BLK_BOARD_logo.jpg">
+          {{/if}}
+        </div>
+
+        <a href="#" class="post-title">{{title}}</a>
+        <p>by {{author}}</p>
+      </div>
+
+      <div class="post-info-container right">
+        <div class="post-tags-container">
+          {{#each tags}}
+            <div class="post-tag {{this}}-tag">{{this}}</div>
+          {{/each}}
+        </div>
+
+        <div class="post-date-container">
+          <p>{{createdAt}}</p>
+        </div>
+
+        <div class="post-ratings-container">
+          {{#if hasVotedOn}}
+            <img class="post-upvote-icon" src="/img/upvote_active.png">
+          {{else}}
+            <img class="post-upvote-icon" src="/img/upvote_inactive.png">
+          {{/if}}
+          <p>{{score}}</p>
+        </div>
+      </div>
+
+      <div class="post-popup-container">
+        <div class="post-group">{{group}}</div>
+        <div class="post-body">"{{body}}"</div>
+      </div>
+
+  <!-- </div> -->
+</div>

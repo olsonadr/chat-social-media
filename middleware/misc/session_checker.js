@@ -1,4 +1,4 @@
-module.exports = function(indexContext) {
+module.exports = function(indexContext, defaultAuthedDest, defaultNonAuthedDest) {
 
     return function(req, res, next) {
 
@@ -8,7 +8,7 @@ module.exports = function(indexContext) {
             indexContext.headerDropdownMode = "logged-in";
 
             // Catch unnecessary requests
-            if (req.originalUrl == '/login' || req.originalUrl == '/signup') { res.redirect('/index'); }
+            if (req.originalUrl == '/login' || req.originalUrl == '/signup') { res.redirect(defaultAuthedDest); }
 
             // Move on
             else { next(); }
@@ -27,7 +27,7 @@ module.exports = function(indexContext) {
             else if (req.originalUrl == '/404') { next(); }
 
             // Redirect to login page
-            else { res.redirect('/login'); }
+            else { res.redirect(defaultNonAuthedDest); }
 
         }
 

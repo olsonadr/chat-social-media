@@ -3,16 +3,17 @@ module.exports = function(app, sessionChecker, context, User) {
     // Signup Route Middleware
     app.route('/signup')
         .get(sessionChecker, (req, res) => {
-              context.siteTitle = 'Signup';
-              res.render('signup', context);
-              context.initMessage = "";
-              return;
+            context.siteTitle = 'Signup';
+            res.render('signup', context);
+            context.initMessage = "";
+            return;
         })
-        .post((req, res) => {
+        .post(sessionChecker, (req, res) => {
             User.create({
                 username: req.body.username,
                 password: req.body.password,
                 highscore: 0,
+                posts: []
             })
             .then(user => {
                 req.session.user = user.dataValues;

@@ -1,5 +1,5 @@
-module.exports = function(app, io, session, indexContext, User, chatRooms, maxCons) {
-  
+module.exports = function(app, io, session, indexContext, User, chatRooms, maxCons, defaultAuthedDest, defaultNonAuthedDest) {
+
     // Returned object
     var result = {};
 
@@ -20,7 +20,7 @@ module.exports = function(app, io, session, indexContext, User, chatRooms, maxCo
     // // // // // // // // // // // // // // //
 
     // Middleware to Check for User Session Cookie
-    result.sessionChecker = require('./misc/session_checker.js')(indexContext);
+    result.sessionChecker = require('./misc/session_checker.js')(indexContext, defaultAuthedDest, defaultNonAuthedDest);
 
     // Session + Socket.io Integration Middleware
     require('./misc/session_socket_integration.js')(app, io, session);
