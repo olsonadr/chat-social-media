@@ -2,10 +2,6 @@
 
 A social media website project based in forced chat-interactions between users required to access content
 
-## Deployed
-
-This project is currently being deployed [on heroku](https://chat-social-media.herokuapp.com). It can also be cloned and run with a local PostgreSQL database as described in the following instructions.
-
 ## Dependencies
 - node.js >= v13.9.0
 - [PostgreSQL](https://www.postgresql.org/ "PostgreSQL Homepage") >= v12
