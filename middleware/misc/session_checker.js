@@ -1,36 +1,44 @@
-module.exports = function(indexContext, defaultAuthedDest, defaultNonAuthedDest) {
+export default function (
+  indexContext,
+  defaultAuthedDest,
+  defaultNonAuthedDest
+) {
+  return function (req, res, next) {
+    // if user is logged in this session
+    if (req.session.user && req.cookies.user_sid) {
+      // Set logged-in status in index context
+      indexContext.headerDropdownMode = "logged-in";
 
-    return function(req, res, next) {
+      // Catch unnecessary requests
+      if (req.originalUrl == "/login" || req.originalUrl == "/signup") {
+        res.redirect(defaultAuthedDest);
+      }
 
-        // if user is logged in this session
-        if (req.session.user && req.cookies.user_sid) {
-            // Set logged-in status in index context
-            indexContext.headerDropdownMode = "logged-in";
+      // Move on
+      else {
+        next();
+      }
+    }
 
-            // Catch unnecessary requests
-            if (req.originalUrl == '/login' || req.originalUrl == '/signup') { res.redirect(defaultAuthedDest); }
+    // if user is not logged in this session
+    else {
+      // Set logged-in status in index context
+      indexContext.headerDropdownMode = "logged-out";
 
-            // Move on
-            else { next(); }
+      // Prevent unnecessary redirect loop
+      if (req.originalUrl == "/login" || req.originalUrl == "/signup") {
+        next();
+      }
 
-        }
+      // If destination doesn't care about login
+      else if (req.originalUrl == "/404") {
+        next();
+      }
 
-        // if user is not logged in this session
-        else {
-            // Set logged-in status in index context
-            indexContext.headerDropdownMode = "logged-out";
-
-            // Prevent unnecessary redirect loop
-            if (req.originalUrl == '/login' || req.originalUrl == '/signup') { next(); }
-
-            // If destination doesn't care about login
-            else if (req.originalUrl == '/404') { next(); }
-
-            // Redirect to login page
-            else { res.redirect(defaultNonAuthedDest); }
-
-        }
-
-    };
-
-};
+      // Redirect to login page
+      else {
+        res.redirect(defaultNonAuthedDest);
+      }
+    }
+  };
+}

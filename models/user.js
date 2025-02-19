@@ -1,8 +1,7 @@
-module.exports = function(sequelize, DataTypes) {
+import bcrypt from 'bcrypt';
+import { Op } from 'sequelize';
 
-    // Includes
-    var bcrypt = require('bcrypt');
-    const { Op } = require('sequelize');
+export default function(sequelize, DataTypes) {
 
     // setup User model and its fields.
     var User = sequelize.define('users', {

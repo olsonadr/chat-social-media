@@ -15,8 +15,7 @@ $ npm install
 ```
 - Install PostgreSQL, specifying data directory and setting up database configuration. This project, as an example, uses database name "chat-social-media" on "localhost:5432"
 
-- Start PosgreSQL server and connect to it:
-
+- Start PosgreSQL server and connect to it (must use `pg_ctlcluster` or similar instead of `pg_ctl` in newer versions of PostgreSQL):
 ```
 $ pg_ctl start -D '<PATH_TO_DATA_DIR>'
 $ psql -U "<POSTGRES_USERNAME>"
